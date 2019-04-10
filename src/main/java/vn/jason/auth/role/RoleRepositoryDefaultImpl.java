@@ -33,7 +33,8 @@ public class RoleRepositoryDefaultImpl implements RoleRepository {
 
     @Override
     public Set<Role> getAll() {
-        return this.dataSet;
+        return this.dataSet.stream()
+                .collect(Collectors.toSet());
     }
 
     @Override

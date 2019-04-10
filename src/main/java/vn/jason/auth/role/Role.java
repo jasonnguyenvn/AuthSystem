@@ -1,32 +1,34 @@
 package vn.jason.auth.role;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.auto.value.AutoValue;
 
 @AutoValue
-abstract class Role {
+public abstract class Role {
     abstract String name();
     abstract String description();
     
-    static Builder builder() {
+    public static Builder builder() {
         return new AutoValue_Role.Builder();
     }
     
     @AutoValue.Builder
-    abstract static class Builder {
-        abstract Builder name(String name);
-        abstract Builder description(String description);
-        abstract Role build();
+    public abstract static class Builder {
+        public abstract Builder name(String name);
+        public abstract Builder description(String description);
+        public abstract Role build();
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.name() == null) ? 0 : this.name().hashCode());
         return result;
     }
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -34,12 +36,7 @@ abstract class Role {
         if (getClass() != obj.getClass())
             return false;
         Role other = (Role) obj;
-        if (this.name() == null) {
-            if (other.name() != null)
-                return false;
-        } else if (!this.name().equalsIgnoreCase(other.name()))
-            return false;
-        return true;
+        return StringUtils.equalsIgnoreCase(this.name(), other.name());
     }
     
     

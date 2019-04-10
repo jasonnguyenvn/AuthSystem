@@ -13,11 +13,11 @@ import com.google.inject.Singleton;
 @Singleton
 public class PermissionRepositoryDefaultImpl implements PermissionRepository {
     private final Set<Permission> dataSet = new HashSet<>();
-    private long currentId = 0;
 
     @Override
     public synchronized Set<Permission> getAll() {
-        return this.dataSet;
+        return this.getDataSetStream()
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -33,7 +33,6 @@ public class PermissionRepositoryDefaultImpl implements PermissionRepository {
             throw new IllegalArgumentException("Duplicated name!");
         }
         Permission permission = Permission.builder()
-                                .id(this.currentId++)
                                 .name(name)
                                 .build();
         this.dataSet.add(permission);
