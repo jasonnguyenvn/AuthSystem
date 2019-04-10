@@ -1,8 +1,6 @@
-package vn.jason.auth.role;
+package vn.jason.auth.role.masterdata;
 
-import vn.jason.auth.role.masterdata.RoleMasterData;
-
-public enum TEST_ROLES implements RoleMasterData {
+public enum SIMPLE_ROLES implements RoleMasterData {
     CEO("Higest role in company."),
     MANAGER("The one who manages a group of staff."),
     STAFF("The one who works for the company."),
@@ -10,7 +8,7 @@ public enum TEST_ROLES implements RoleMasterData {
     
     private final String description;
     
-    TEST_ROLES(String description) {
+    SIMPLE_ROLES(String description) {
         this.description = description;
     }
 

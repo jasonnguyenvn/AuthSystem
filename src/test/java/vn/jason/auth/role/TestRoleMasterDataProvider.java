@@ -3,14 +3,14 @@ package vn.jason.auth.role;
 import java.util.HashSet;
 import java.util.Set;
 
-import vn.jason.auth.role.metadata.RoleMetaData;
-import vn.jason.auth.role.metadata.RoleMetaDataProvider;
+import vn.jason.auth.role.masterdata.RoleMasterData;
+import vn.jason.auth.role.masterdata.RoleMasterDataProvider;
 
-class TestRoleMetaDataProvider implements RoleMetaDataProvider {
+class TestRoleMasterDataProvider implements RoleMasterDataProvider {
 
     @Override
-    public Set<RoleMetaData> get() {
-        Set<RoleMetaData> result = new HashSet<>();
+    public Set<RoleMasterData> get() {
+        Set<RoleMasterData> result = new HashSet<>();
         
         result.add(TEST_ROLES.CEO);
         result.add(TEST_ROLES.MANAGER);

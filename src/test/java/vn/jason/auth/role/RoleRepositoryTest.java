@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import com.google.inject.Guice;
 
-import vn.jason.auth.role.metadata.RoleMetaDataModule;
+import vn.jason.auth.role.masterdata.RoleMasterDataModule;
 
 public class RoleRepositoryTest {
     private RoleRepository repository;
     
     @Before
     public void setUp() {
-        this.repository = Guice.createInjector(new RoleModule(), new TestRoleMetaDataModule())
+        this.repository = Guice.createInjector(new RoleModule(), new TestRoleMasterDataModule())
                             .getInstance(RoleRepository.class);
     }
     
@@ -38,7 +38,7 @@ public class RoleRepositoryTest {
     
     @Test
     public void testInitMetaFromCurrentProductionRoleMetaDataModule() {
-        RoleRepository repository = Guice.createInjector(new RoleModule(), new RoleMetaDataModule())
+        RoleRepository repository = Guice.createInjector(new RoleModule(), new RoleMasterDataModule())
                 .getInstance(RoleRepository.class);
         Assert.assertFalse(repository.getAll().isEmpty());
     }

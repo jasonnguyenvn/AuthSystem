@@ -9,22 +9,22 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import vn.jason.auth.role.metadata.RoleMetaData;
-import vn.jason.auth.role.metadata.RoleMetaDataProvider;
+import vn.jason.auth.role.masterdata.RoleMasterData;
+import vn.jason.auth.role.masterdata.RoleMasterDataProvider;
 
 @Singleton
 public class RoleRepositoryDefaultImpl implements RoleRepository {
     private final Set<Role> dataSet;
-    private final Set<RoleMetaData> metaData;
+    private final Set<RoleMasterData> masterData;
     
     @Inject
-    public RoleRepositoryDefaultImpl(RoleMetaDataProvider metaDataProvider) {
-        this.metaData = metaDataProvider.get();
-        this.dataSet = this.metaData
+    public RoleRepositoryDefaultImpl(RoleMasterDataProvider metaDataProvider) {
+        this.masterData = metaDataProvider.get();
+        this.dataSet = this.masterData
                             .stream()
                             .map(data -> {
                                 return Role.builder()
-                                        .name(data.roleName())
+                                        .name(data.name())
                                         .description(data.description())
                                         .build();
                             })
