@@ -1,8 +1,6 @@
 package vn.jason.auth.role;
 
-import com.google.inject.AbstractModule;
-
-class TestRoleMetaDataModule extends AbstractModule {
+class TestRoleMetaDataModule extends RoleMetaDataModule {
     @Override
     protected void configure() {
         this.bind(RoleMetaDataProvider.class)

@@ -33,5 +33,12 @@ public class RoleRepositoryTest {
     public void testGetRoleByNameReturnNoInstanceWhenPassWrongRoleName() {
         Assert.assertFalse(this.repository.get("INVALID_ROLE_NAME").isPresent());
     }
+    
+    @Test
+    public void testInitMetaFromCurrentProductionRoleMetaDataModule() {
+        RoleRepository repository = Guice.createInjector(new RoleModule(), new RoleMetaDataModule())
+                .getInstance(RoleRepository.class);
+        Assert.assertFalse(repository.getAll().isEmpty());
+    }
 
 }
