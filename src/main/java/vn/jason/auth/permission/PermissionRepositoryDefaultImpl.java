@@ -33,7 +33,7 @@ public class PermissionRepositoryDefaultImpl implements PermissionRepository {
             throw new IllegalArgumentException("Duplicated name!");
         }
         Permission permission = Permission.builder()
-                                .id(currentId++)
+                                .id(this.currentId++)
                                 .name(name)
                                 .build();
         this.dataSet.add(permission);
