@@ -3,6 +3,9 @@ package vn.jason.auth.role;
 import java.util.HashSet;
 import java.util.Set;
 
+import vn.jason.auth.role.metadata.RoleMetaData;
+import vn.jason.auth.role.metadata.RoleMetaDataProvider;
+
 class TestRoleMetaDataProvider implements RoleMetaDataProvider {
 
     @Override

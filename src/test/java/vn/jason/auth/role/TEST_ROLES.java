@@ -1,5 +1,7 @@
 package vn.jason.auth.role;
 
+import vn.jason.auth.role.metadata.RoleMetaData;
+
 public enum TEST_ROLES implements RoleMetaData {
     CEO("CEO", "Higest role in company."),
     MANAGER("manager", "The one who manages a group of staff."),

@@ -1,4 +1,4 @@
-package vn.jason.auth.role;
+package vn.jason.auth.role.metadata;
 
 public interface RoleMetaData {
     String roleName();

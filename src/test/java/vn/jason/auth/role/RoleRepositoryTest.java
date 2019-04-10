@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import com.google.inject.Guice;
 
+import vn.jason.auth.role.metadata.RoleMetaDataModule;
+
 public class RoleRepositoryTest {
     private RoleRepository repository;
     

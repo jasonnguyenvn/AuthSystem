@@ -1,4 +1,4 @@
-package vn.jason.auth.role;
+package vn.jason.auth.role.metadata;
 
 public enum SIMPLE_ROLES implements RoleMetaData {
     CEO("CEO", "Higest role in company."),

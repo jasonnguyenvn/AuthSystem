@@ -1,4 +1,4 @@
-package vn.jason.auth.role;
+package vn.jason.auth.role.metadata;
 
 import com.google.inject.AbstractModule;
 

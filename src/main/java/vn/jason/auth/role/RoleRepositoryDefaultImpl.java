@@ -9,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import vn.jason.auth.role.metadata.RoleMetaData;
+import vn.jason.auth.role.metadata.RoleMetaDataProvider;
+
 @Singleton
 public class RoleRepositoryDefaultImpl implements RoleRepository {
     private final Set<Role> dataSet;
