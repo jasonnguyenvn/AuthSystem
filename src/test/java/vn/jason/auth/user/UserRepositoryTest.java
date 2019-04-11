@@ -115,11 +115,10 @@ public class UserRepositoryTest {
     public void verifyStaffLevels() {
         this.prepareData();
         User ceo = this.repository.get(0L).get();
-     // now we have 99,999 users left.
+        // now we have 99,999 users left.
         // 10 1st level managers (each one manages 90 staffs of next level)
         // 900 2nd level managers (each one manage 110 staffs of next level)
-        // (the last 2nd level manager manages 110 + 9 staffs)
-        // 99,000+9 normal staff
+        // (the last 2nd level manager manages 110 + 89 staffs)
         int noOf1stLevel = 10;
         int noOf2ndLevel = 90;
         int noOf3rdLevel = 110;

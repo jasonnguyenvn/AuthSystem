@@ -15,12 +15,12 @@ public class UserRepositoryDefaultImpl implements UserRepository {
     private Map<Long, User> data = new HashMap<>();
     
     @Override
-    public synchronized Set<User> getAll(int page, int recordsPerPage) {
+    public synchronized Set<User> getAll(long page, long recordsPerPage) {
         if (page<1 || page>data.size()/recordsPerPage || recordsPerPage>data.size()) {
             throw new IndexOutOfBoundsException();
         }
         return this.data.entrySet().parallelStream()
-                .skip(Integer.valueOf(recordsPerPage*(page-1)).longValue())
+                .skip(recordsPerPage*(page-1))
                 .limit(recordsPerPage)
                 .map(Entry::getValue)
                 .collect(Collectors.toSet());

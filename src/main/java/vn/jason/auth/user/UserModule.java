@@ -10,6 +10,9 @@ public class UserModule extends AbstractModule {
         this.bind(UserRepository.class)
             .to(UserRepositoryDefaultImpl.class)
             .in(Singleton.class);
+        this.bind(UserService.class)
+            .to(UserServiceDefaultImpl.class)
+            .in(Singleton.class);
     }
 
 }
