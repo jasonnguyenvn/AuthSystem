@@ -34,7 +34,7 @@ public class UserRepositoryTest {
     }
     
     @Test
-    public void testLastUser() {
+    public void testGetLastUser() {
         this.prepareData();
         User user = User.builder()
                 .id(99999L)
@@ -77,6 +77,41 @@ public class UserRepositoryTest {
     }
     
     @Test
+    public void testGetAllWithoutPaging() {
+        this.prepareData();
+        Set<User> result = this.repository.getAll(1, 100000);
+        Assert.assertTrue(result.size()==100000);
+    }
+    
+    @Test
+    public void testGetAllWithPaging100Records() {
+        this.prepareData();
+        for (int i=0;i<100000/100;i++) {
+            Set<User> page = this.repository.getAll(1, 100);
+            Assert.assertTrue(page.size()==100);
+        }
+    }
+    
+    @Test(expected =  IndexOutOfBoundsException.class)
+    public void testGetAllThrowExceptionIfPageNumberEqualsZero() {
+        this.prepareData();
+        this.repository.getAll(0, 100000);
+    } 
+    
+    @Test(expected =  IndexOutOfBoundsException.class)
+    public void testGetAllThrowExceptionIfPageNumberOutOfBound() {
+        this.prepareData();
+        this.repository.getAll(2, 100000);
+    }
+    
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetAllThrowExceptionWhenOutOfRange() {
+        this.prepareData();
+        this.repository.getAll(1, 100001);
+    }
+    
+    @Test
     public void verifyStaffLevels() {
         this.prepareData();
         User ceo = this.repository.get(0L).get();
@@ -98,7 +133,7 @@ public class UserRepositoryTest {
                 currentId = this.verifyNextLineStaffs(currentId, 1, noOf3rdLevel, user2);
 
                 if (i == noOf1stLevel && j == noOf2ndLevel) {
-                    currentId = this.verifyNextLineStaffs(currentId, 99901, 99999, user2);
+                    currentId = this.verifyNextLineStaffs(currentId, 1, 89, user2);
                 }
             }
         }

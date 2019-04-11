@@ -22,7 +22,7 @@ public final class UserFixture {
         // now we have 99,999 users left.
         // 10 1st level managers (each one manages 90 staffs of next level)
         // 900 2nd level managers (each one manage 110 staffs of next level)
-        // (the last 2nd level manager manages 110 + 9 staffs)
+        // (the last 2nd level manager manages 110 + 89 staffs)
         // 99,000+9 normal staff
         long noOf1stLevel = 10;
         long noOf2ndLevel = 90;
@@ -34,7 +34,7 @@ public final class UserFixture {
                 User user2 = initUser(currentId++, user);
                 currentId = initNextLineStaffs(currentId, 1, noOf3rdLevel, user2);
                 if (i == noOf1stLevel && j == noOf2ndLevel) {
-                    currentId = initNextLineStaffs(currentId, 99901, 99999, user2);
+                    currentId = initNextLineStaffs(currentId, 1, 89, user2);
                 }
             }
         }

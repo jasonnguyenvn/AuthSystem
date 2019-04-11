@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.google.inject.Singleton;
 
@@ -14,8 +16,14 @@ public class UserRepositoryDefaultImpl implements UserRepository {
     
     @Override
     public synchronized Set<User> getAll(int page, int recordsPerPage) {
-        // TODO Auto-generated method stub
-        return null;
+        if (page<1 || page>data.size()/recordsPerPage || recordsPerPage>data.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return this.data.entrySet().parallelStream()
+                .skip(Integer.valueOf(recordsPerPage*(page-1)).longValue())
+                .limit(recordsPerPage)
+                .map(Entry::getValue)
+                .collect(Collectors.toSet());
     }
 
     @Override
