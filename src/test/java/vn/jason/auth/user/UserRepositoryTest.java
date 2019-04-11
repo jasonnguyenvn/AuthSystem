@@ -7,6 +7,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.powermock.reflect.Whitebox;
 
 import com.google.inject.Guice;
 
@@ -92,6 +93,30 @@ public class UserRepositoryTest {
         }
     }
     
+    @Test
+    public void testUpdateSuccessfully() {
+        this.prepareData();
+        User ceo = this.repository.get(0).get();
+        User user = this.repository.get(2).get();
+        Assert.assertNotEquals(ceo, user.manager());
+        User oldManager = user.manager();
+        
+        User clonedUser = User.clone(user);
+        Whitebox.setInternalState(clonedUser, "manager", ceo); 
+
+        user = this.repository.get(2).get();
+        Assert.assertNotEquals(ceo, user.manager());
+        Assert.assertEquals(oldManager, user.manager());
+        
+        this.repository.update(clonedUser);
+        
+        user = this.repository.get(2).get();
+        ceo = this.repository.get(0).get();
+        Assert.assertNotEquals(oldManager, user.manager());
+        Assert.assertEquals(ceo, user.manager());
+        Assert.assertTrue(ceo.nextLineStaffs().contains(user));
+    }
+    
     @Test(expected =  IndexOutOfBoundsException.class)
     public void testGetAllThrowExceptionIfPageNumberEqualsZero() {
         this.prepareData();
@@ -148,6 +173,7 @@ public class UserRepositoryTest {
     }
 
     private void verifyUserLevel(User user, User nextLineManager) {
+        nextLineManager = this.repository.get(nextLineManager.id()).get();
         Assert.assertEquals(nextLineManager, user.manager());
         Assert.assertTrue(nextLineManager.nextLineStaffs().contains(user));
     }

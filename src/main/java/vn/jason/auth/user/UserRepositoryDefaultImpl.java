@@ -28,7 +28,9 @@ public class UserRepositoryDefaultImpl implements UserRepository {
 
     @Override
     public synchronized Optional<User> get(long id) {
-        return Optional.ofNullable(this.data.get(id));
+        return Optional.ofNullable(this.data.get(id))
+                .map(data -> User.clone(data));
+        
     }
 
     @Override
@@ -41,12 +43,16 @@ public class UserRepositoryDefaultImpl implements UserRepository {
             if (!this.data.containsKey(user.manager().id())) {
                 throw new IllegalArgumentException();
             }
-            this.get(user.manager().id())
-                .ifPresent(manager -> {
-                    manager.nextLineStaffs().add(user);
-                });
+            User manager = this.data.get(user.manager().id());
+            manager.nextLineStaffs().add(user);
         }
-        return Optional.ofNullable(user);
+        return this.get(user.id());
+    }
+
+    @Override
+    public Optional<User> update(User data) {
+        this.data.remove(data.id());
+        return this.add(data);
     }
 
 }

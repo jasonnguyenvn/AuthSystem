@@ -3,6 +3,7 @@ package vn.jason.auth.user;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -12,7 +13,7 @@ import vn.jason.auth.permission.Permission;
 import vn.jason.auth.role.Role;
 
 @AutoValue
-public abstract class User {
+public abstract class User implements Cloneable {
     @Nullable abstract Long id();
     abstract Set<Permission> permissions();
     abstract Set<Role> roles();
@@ -57,5 +58,28 @@ public abstract class User {
         User other = (User) obj;
         return Objects.equals(this.id(), other.id());
     }
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return User.clone(this);
+    }
+    
+    public static User clone(User data) {
+        return User.builder()
+                .id(data.id())
+                .permissions(data.permissions().stream().collect(Collectors.toSet()))
+                .roles(data.roles().stream().collect(Collectors.toSet()))
+                .nextLineStaffs(data.nextLineStaffs().stream().map(staff -> User.simpleClone(staff)).collect(Collectors.toSet()))
+                .manager(data.manager() == null ? null : User.simpleClone(data.manager()))
+                .build();
+    }
+    
+    public static User simpleClone(User data) {
+        return User.builder()
+                .id(data.id())
+                .permissions(data.permissions().stream().collect(Collectors.toSet()))
+                .roles(data.roles().stream().collect(Collectors.toSet()))
+                .build();
+    }
+    
 }
 
